@@ -28,7 +28,6 @@ app.ws("/", (ws, req) => {
   })
 })
 
-
 app.listen(PORT, () => {
   console.log("Server work on 5000 port");
 })
