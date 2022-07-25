@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 import { Canvas } from "./components/canvas";
 import { SettingsBar } from "./components/settings";
 import { Toolbar } from "./components/toolbar";
+import { PaintContext } from "./context/paintContext";
+import { useCanvas } from "./hooks/canvas.hook";
 
 
 const Layout = styled.div`
@@ -13,12 +15,15 @@ const Layout = styled.div`
 `;
 
 function App() {
+  const { canvas, setCanvasHandler } = useCanvas();
   return (
-    <Layout>
-      <Toolbar />
-      <SettingsBar />
-      <Canvas />
-    </Layout>
+    <PaintContext.Provider value={{ canvas, setCanvasHandler }}>
+      <Layout>
+        <Toolbar />
+        <SettingsBar />
+        <Canvas />
+      </Layout>
+    </PaintContext.Provider>
   );
 }
 
