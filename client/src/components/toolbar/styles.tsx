@@ -15,6 +15,7 @@ const StyledToolbar = styled.div`
 
 type ToolButtonProps = {
   img: string;
+  active?: boolean;
 };
 
 const ToolButton = styled.button<ToolButtonProps>`
@@ -23,13 +24,18 @@ const ToolButton = styled.button<ToolButtonProps>`
   height: 35px;
   cursor: pointer;
   background: none;
-  border: none;
+  border: 2px solid white;
+  
+  ${p=>p.active && css`
+      border: 2px solid red;
+  `};
 
   ${(p) =>
     p.img &&
     css`
       background-image: url(${p.img});
-      background-size: 35px 35px;
+      background-size: 30px 30px;
+      background-repeat: no-repeat;
     `}
 `;
 

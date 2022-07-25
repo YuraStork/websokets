@@ -3,7 +3,7 @@ import { PaintContext } from "../../context/paintContext"
 import { CanvasWrapper } from "./styles"
 
 export const Canvas = () => {
-  const { setCanvasHandler } = useContext(PaintContext);
+  const { setCanvasHandler, draw } = useContext(PaintContext);
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -11,6 +11,6 @@ export const Canvas = () => {
   }, [])
 
   return <CanvasWrapper >
-    <canvas ref={canvasRef}></canvas>
+    <canvas ref={canvasRef} onMouseDown={(e) => draw(e).onMouseDown(e)}></canvas>
   </CanvasWrapper >
 }
