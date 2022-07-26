@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Circle } from "../tools/circle";
-import { Eraser } from "../tools/eraser";
-import { Line } from "../tools/line";
-import { Pen } from "../tools/pen";
-import { Square } from "../tools/square";
+import { Circle } from "../canvas_classes/circle.class";
+import { Eraser } from "../canvas_classes/eraser.class";
+import { Line } from "../canvas_classes/line.class";
+import { Pen } from "../canvas_classes/pen.class";
+import { Square } from "../canvas_classes/square.class";
+import { Tool } from "../canvas_classes/tool.class";
 
 export type ToolsTypes = "pen" | "line" | "eraser" | "circle" | "square";
 
@@ -25,6 +26,8 @@ export const useCanvas = () => {
   }, [tool]);
 
   const draw = () => {
+    new Tool(canvasRef);
+
     switch (tool) {
       case "pen": new Pen(canvasRef); break;
       case "square": new Square(canvasRef); break;
