@@ -3,11 +3,11 @@ import { PaintContext } from "../../context/paintContext";
 import { CanvasWrapper } from "./styles";
 
 export const Canvas = () => {
-  const { canvasRef } = useContext(PaintContext);
+  const { canvasRef, handleSnapshot } = useContext(PaintContext);
 
   return (
     <CanvasWrapper>
-      <canvas ref={canvasRef}></canvas>
+      <canvas onMouseUp={() => { handleSnapshot() }} ref={canvasRef} ></canvas>
     </CanvasWrapper>
   );
 };
