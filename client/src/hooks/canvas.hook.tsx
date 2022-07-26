@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Circle } from "../tools/circle";
 import { Pen } from "../tools/pen";
 import { Square } from "../tools/square";
 
@@ -25,6 +26,7 @@ export const useCanvas = () => {
     switch (tool) {
       case "pen": new Pen(canvasRef); break;
       case "square": new Square(canvasRef); break;
+      case "circle": new Circle(canvasRef); break;
       default: new Pen(canvasRef)
     }
   };
