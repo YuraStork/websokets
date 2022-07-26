@@ -1,34 +1,32 @@
-import { MouseEvent, useState } from "react"
-import { DrawType } from "../context/paintContext";
-import { Branch } from "../tools/line";
+import { useEffect, useRef, useState } from "react";
+import { Pen } from "../tools/pen";
+import { Square } from "../tools/square";
 
-export type ToolsTypes = "pen" | "line" | "eraser" | "circle" | "square"
+export type ToolsTypes = "pen" | "line" | "eraser" | "circle" | "square";
 
 export const useCanvas = () => {
-  const [canvas, setCanvas] = useState<null | React.RefObject<HTMLCanvasElement>>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null!);
   const [tool, setTool] = useState<ToolsTypes>("pen");
-
-  const setCanvasHandler = (ref: React.RefObject<HTMLCanvasElement>) => {
-    setCanvas(ref);
-  }
 
   const setToolhandler = (tool: ToolsTypes) => {
     setTool(tool);
-  }
+  };
 
-  const draw = (e: React.MouseEvent<HTMLCanvasElement>): DrawType => {
+  useEffect(() => {
+    canvasRef.current.width = 1200;
+    canvasRef.current.height = 550;
+  }, []);
+
+  useEffect(() => {
+    draw();
+  }, [tool]);
+
+  const draw = () => {
     switch (tool) {
-      case "pen": return {
-        onMouseDown: (e) => Branch(canvas).onMouseDown(e),
-        onMouseMove: (e) => Branch(canvas).onMouseMove(e),
-        onMouseUp: (e) => Branch(canvas).onMouseUp(e)
-      }
-      default: return {
-        onMouseDown: (e) => console.log(e.clientX, e.clientY),
-        onMouseMove: (e) => console.log(e.clientX, e.clientY),
-        onMouseUp: (e) => console.log(e.clientX, e.clientY)
-      }
+      case "pen": new Pen(canvasRef); break;
+      case "square": new Square(canvasRef); break;
+      default: new Pen(canvasRef)
     }
-  }
-  return { canvas, setCanvasHandler, setToolhandler, draw, tool }
-}
+  };
+  return { canvasRef, setToolhandler, draw, tool };
+};

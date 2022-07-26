@@ -15,9 +15,9 @@ const Layout = styled.div`
 `;
 
 function App() {
-  const { canvas, setCanvasHandler, setToolhandler, draw, tool } = useCanvas();
+  const { canvasRef, setToolhandler, tool } = useCanvas();
   return (
-    <PaintContext.Provider value={{ canvas, setCanvasHandler, setToolhandler, draw, tool }}>
+    <PaintContext.Provider value={{ canvasRef, setToolhandler, tool }}>
       <Layout>
         <Toolbar />
         <SettingsBar />
