@@ -1,17 +1,13 @@
-import { useContext, useEffect, useRef } from "react"
-import { PaintContext } from "../../context/paintContext"
-import { CanvasWrapper } from "./styles"
+import { useContext } from "react";
+import { PaintContext } from "../../context/paintContext";
+import { CanvasWrapper } from "./styles";
 
 export const Canvas = () => {
-  const { canvas, setCanvasHandler } = useContext(PaintContext);
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { canvasRef } = useContext(PaintContext);
 
-  useEffect(() => {
-    setCanvasHandler(canvasRef);
-  }, [])
-
-  console.log("CANVAS", canvas)
-  return <CanvasWrapper >
-    <canvas ref={canvasRef}></canvas>
-  </CanvasWrapper >
-}
+  return (
+    <CanvasWrapper>
+      <canvas ref={canvasRef}></canvas>
+    </CanvasWrapper>
+  );
+};

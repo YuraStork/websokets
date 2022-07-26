@@ -1,8 +1,14 @@
-import { createContext, Ref } from "react";
+import React, { createContext } from "react";
+import { ToolsTypes } from "../hooks/canvas.hook";
 
 type PaintContextTypes = {
-  canvas: null | Ref<HTMLCanvasElement>,
-  setCanvasHandler: (ref: Ref<HTMLCanvasElement>) => void
-}
+  canvasRef: React.Ref<HTMLCanvasElement>;
+  setToolhandler: (tool: ToolsTypes) => void;
+  tool: ToolsTypes;
+};
 
-export const PaintContext = createContext<PaintContextTypes>({ canvas: null, setCanvasHandler: () => { } });
+export const PaintContext = createContext<PaintContextTypes>({
+  canvasRef: null,
+  setToolhandler: () => { },
+  tool: "pen",
+});

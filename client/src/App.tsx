@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Canvas } from "./components/canvas";
 import { SettingsBar } from "./components/settings";
 import { Toolbar } from "./components/toolbar";
@@ -15,9 +15,9 @@ const Layout = styled.div`
 `;
 
 function App() {
-  const { canvas, setCanvasHandler } = useCanvas();
+  const { canvasRef, setToolhandler, tool } = useCanvas();
   return (
-    <PaintContext.Provider value={{ canvas, setCanvasHandler }}>
+    <PaintContext.Provider value={{ canvasRef, setToolhandler, tool }}>
       <Layout>
         <Toolbar />
         <SettingsBar />
