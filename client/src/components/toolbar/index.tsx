@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { PaintContext } from "../../context/paintContext";
 import { ToolsTypes } from "../../hooks/canvas.hook";
 import { StyledToolbar, ToolButton } from "./styles";
@@ -39,7 +40,7 @@ export const Toolbar = () => {
         <ToolButton img="../assets/left-arrow.png" onClick={handleReset} />
         <ToolButton img="../assets/right-arrow.png" onClick={handleRedo} />
         <ToolButton img="../assets/diskette.png" onClick={handleSavePhoto} />
-
+        <Link to="/">Home</Link>
       </div>
     </StyledToolbar>
   );
