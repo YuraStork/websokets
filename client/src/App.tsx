@@ -15,9 +15,9 @@ const Layout = styled.div`
 `;
 
 function App() {
-  const { canvasRef, setToolhandler, tool, changeBackgroundColor, changeBorderColor, changeBorderSize, handleRedo, handleReset, handleSnapshot } = useCanvas();
+  const { canvasRef, setToolhandler, tool, changeBackgroundColor, changeBorderColor, changeBorderSize, handleRedo, handleReset, handleSnapshot, snapshot } = useCanvas();
   return (
-    <PaintContext.Provider value={{ canvasRef, setToolhandler, tool, changeBackgroundColor, changeBorderColor, changeBorderSize, handleRedo, handleReset, handleSnapshot }}>
+    <PaintContext.Provider value={{ canvasRef, setToolhandler, tool, changeBackgroundColor, changeBorderColor, changeBorderSize, handleRedo, handleReset, handleSnapshot, snapshot }}>
       <Layout>
         <Toolbar />
         <SettingsBar />

@@ -10,7 +10,8 @@ type PaintContextTypes = {
   changeBorderSize: (e: number) => void,
   handleReset: () => void,
   handleRedo: () => void,
-  handleSnapshot: () => void
+  handleSnapshot: () => void,
+  snapshot: string | null,
 };
 
 export const PaintContext = createContext<PaintContextTypes>({
@@ -22,5 +23,6 @@ export const PaintContext = createContext<PaintContextTypes>({
   changeBorderSize: () => { },
   handleReset: () => { },
   handleRedo: () => { },
-  handleSnapshot: () => { }
+  handleSnapshot: () => { },
+  snapshot: null
 });

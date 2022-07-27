@@ -92,5 +92,6 @@ export const useCanvas = () => {
     handleSnapshot,
     handleReset: pushUndo,
     handleRedo: pushRedo,
+    snapshot: snapshotList[snapshotList.length - 1] || null
   };
 };
