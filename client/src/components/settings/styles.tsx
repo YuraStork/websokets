@@ -6,6 +6,11 @@ const StyledSettings = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  & > div{
+    display: flex;
+    gap: 10px;
+  }
 `;
 
 export {StyledSettings};
