@@ -1,8 +1,8 @@
 export class Tool {
   protected canvas;
   protected ctx;
-  protected width;
-  protected height;
+  protected width = 1200;
+  protected height = 550;
 
   constructor(canvas: React.MutableRefObject<HTMLCanvasElement>) {
     this.canvas = canvas;
