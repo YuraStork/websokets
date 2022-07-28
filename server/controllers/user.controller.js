@@ -9,7 +9,7 @@ const setUser = (req, res, next) => {
     return res.status(200).json();
   }
   catch (e) {
-    return next(e);
+    next(e);
   }
 }
 module.exports = { setUser };
