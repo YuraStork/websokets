@@ -40,13 +40,23 @@ router.get("/all", async (req, res) => {
   }
 });
 
-router.get("/check", async (req, res) => {
+router.get("/check/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(req.params)
-    const room = await room.findById(id).select("-__v -roomPassword");
-    if (!room) throw "Not found";
-    return res.status(200).json(room);
+    console.log("ID", id)
+    const { userId } = req.cookies;
+    console.log("userId", userId)
+    const existRoom = await room.findById(id).select("-__v -roomPassword");
+    if (!existRoom) throw "Not found";
+
+    console.log(existRoom.users)
+    const userInRoom = existRoom.users.find((e) => e === userId);
+    console.log("userInRoom", userInRoom)
+
+    if (!userInRoom) {
+      return res.status(400).json({ "message": "password" });
+    }
+    return res.status(200).json(existRoom);
   } catch (e) {
     console.error(e);
     return res.status(403).json(e);

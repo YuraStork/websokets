@@ -3,7 +3,6 @@ const {nanoid} = require("nanoid");
 const setUser = (req, res) => {
   try {
     const cookies = req.cookies;
-    console.log(cookies);
     if (!cookies.userId) {
       res.cookie('userId', nanoid(), { maxAge: 1000 * 3600 * 24 * 31, httpOnly: true });
     }
