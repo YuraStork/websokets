@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { setUser } from "./api/user/setUser";
+import { Loader } from "./components/loader";
 import { Router } from "./router";
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     // }
   }, [])
 
-  if(isLoading) return <div>loading...</div>
+  if (isLoading) return <Loader position="absolute" />
   return (
     <Router />
   );

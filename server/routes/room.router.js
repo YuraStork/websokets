@@ -3,10 +3,11 @@ const room = require("../models/room");
 
 router.post("/create", async (req, res) => {
   try {
+    const {userId} = req.cookies;
     const { name, roomName, roomPassword } = req.body;
     console.log(req.body)
     if (!name || !roomName) throw "error";
-    const createdRoom = await room.create({ roomName, roomPassword });
+    const createdRoom = await room.create({ roomName, roomPassword, users: [userId] });
     return res.status(200).json(createdRoom);
   } catch (e) {
     console.error(e);

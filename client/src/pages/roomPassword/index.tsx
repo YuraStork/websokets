@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { checkRoomPassword } from "../../api/rooms/checkRoomPassword";
+import { Loader } from "../../components/loader";
 type StateProps = {
   redirect?: boolean;
 }
@@ -33,7 +34,7 @@ export const PrivateRoom = () => {
   return (
     <div>
       {isLoading ? (
-        <h1>loading...</h1>
+        <Loader position="absolute" />
       ) : (
         <>
           <input

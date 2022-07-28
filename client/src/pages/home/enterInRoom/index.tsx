@@ -2,16 +2,22 @@ import { useFormik } from "formik";
 import { EnterInRoomWrapper } from "./styles";
 import { initialValues, onSubmit, validationSchema } from "./const";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../../../components/loader";
+import { FC, useState } from "react";
 
-export const EnterInRoomComponent = () => {
+type ComponentProps = {
+  isLoading: boolean,
+  setIsLoading: (arg: boolean) => void
+}
+export const EnterInRoomComponent: FC<ComponentProps> = ({ setIsLoading, isLoading }) => {
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (data, helper) => onSubmit(data, helper, navigate)
+    onSubmit: (data, helper) => onSubmit(data, helper, navigate, setIsLoading)
   });
-  
+  if (isLoading) return <Loader position="absolute" />
   return (
     <EnterInRoomWrapper>
       <h3>Enter in room</h3>
