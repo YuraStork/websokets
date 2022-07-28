@@ -1,11 +1,15 @@
 import { useFormik } from "formik";
 import { CreateRoomWrapper } from "./styles";
 import { initialValues, onSubmit, validationSchema } from "./const";
+import { useNavigate } from "react-router-dom";
+
 export const CreateRoomComponent = () => {
+  
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit,
+    onSubmit: (data, helper) => onSubmit(data, helper, navigate),
   });
   return (
     <CreateRoomWrapper>
