@@ -17,7 +17,7 @@ export const HomePage = () => {
         <CreateRoomComponent />
         <EnterInRoomComponent />
         <TrainComponent />
-        {data && (data as []).map((e:any)=><div>{e.roomName}</div>)}
+        {data && (data as []).map((e:any)=><div key={e._id}>{e.roomName}</div>)}
       </HomePageWrapper>
     </Container>
   </HomePageSection>

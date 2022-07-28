@@ -1,12 +1,23 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { checkRoomPassword } from "../../api/rooms/checkRoomPassword";
+type StateProps = {
+  redirect?: boolean;
+}
 
 export const PrivateRoom = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams()
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.state);
+    if (!location.state) {
+      navigate("/")
+    }
+  }, [])
 
   const handleEnter = async () => {
     try {
@@ -29,7 +40,6 @@ export const PrivateRoom = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            defaultValue=""
           />
           <button onClick={handleEnter}>enter</button>
         </>
