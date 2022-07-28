@@ -16,13 +16,17 @@ router.post("/create", async (req, res) => {
 
 router.post("/enter", async (req, res) => {
   try {
-    const { name, roomId, roomPassword } = req.body;
-    console.log(req.body)
+    const { userId } = req.cookies;
+    const { name, roomId, roomPassword = "" } = req.body;
+
     if (!roomId || !name) throw "error";
     const existRoom = await room.findById(roomId);
     if (!existRoom) throw "Not found room";
     const enterInRoom = (existRoom.roomPassword === roomPassword);
     if (!enterInRoom) throw "password";
+    await room.findOneAndUpdate({ _id: roomId }, {
+      $push: { users: userId }
+    })
     return res.status(200).json(existRoom);
   } catch (e) {
     console.error(e);
@@ -63,5 +67,35 @@ router.get("/check/:id", async (req, res) => {
     return res.status(403).json(e);
   }
 });
+
+
+router.post("/checkRoomPassword/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password = "", name } = req.body;
+    const { userId } = req.cookies;
+    const existRoom = await room.findById(id).select("-__v");
+    if (!existRoom) throw "Not found";
+
+    const checkPassword = (existRoom.roomPassword === password);
+    console.log(checkPassword);
+
+    if (!checkPassword) {
+      throw "Not valid password";
+    }
+
+    await room.findOneAndUpdate(
+      { _id: id },
+      { $push: { users: userId } },
+    );
+
+    return res.status(200).json();
+  } catch (e) {
+    console.error(e);
+    return res.status(403).json(e);
+  }
+});
+
+
 
 module.exports = router;

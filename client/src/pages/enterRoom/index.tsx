@@ -12,7 +12,7 @@ export const EnterRoomWrapper: FC<any> = ({ children }) => {
     checkRoom(id || "")
       .then((res) => {})
       .catch((e) => {
-        navigate("/")
+        navigate(`/checkRoompassword/${id}`)
       })
       .finally(() => setIsloading(false));
   }, []);
