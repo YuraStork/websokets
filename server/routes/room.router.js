@@ -15,7 +15,7 @@ router.post("/create", async (req, res, next) => {
     });
     return res.status(200).json(createdRoom);
   } catch (e) {
-    return next(e);
+    next(e);
   }
 });
 
@@ -40,7 +40,7 @@ router.post("/enter", async (req, res, next) => {
     }
     return res.status(200).json(existRoom);
   } catch (e) {
-    return next(e);
+     next(e);
   }
 });
 
@@ -49,11 +49,11 @@ router.get("/all", async (req, res, next) => {
     const rooms = await room.find().select("-__v -roomPassword");
     return res.status(200).json(rooms);
   } catch (e) {
-    return next(e);
+    next(e);
   }
 });
 
-router.get("/check/:id", async (req, res) => {
+router.get("/check/:id", async (req, res,next) => {
   try {
     const { id } = req.params;
     const { userId } = req.cookies;
@@ -63,11 +63,11 @@ router.get("/check/:id", async (req, res) => {
     if (!userInRoom) return next(ApiError.forbidden("Not access"));
     return res.status(200).json(existRoom);
   } catch (e) {
-    return next(e);
+    next(e);
   }
 });
 
-router.post("/checkRoomPassword/:id", async (req, res) => {
+router.post("/checkRoomPassword/:id", async (req, res,next) => {
   try {
     const { id } = req.params;
     const { password = "", name } = req.body;
@@ -79,7 +79,7 @@ router.post("/checkRoomPassword/:id", async (req, res) => {
     await room.findOneAndUpdate({ _id: id }, { $push: { users: userId } });
     return res.status(200).json();
   } catch (e) {
-    return next(e);
+    next(e);
   }
 });
 
