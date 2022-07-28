@@ -18,13 +18,18 @@ const validationSchema = yup.object().shape({
 const onSubmit = async (
   data: EnterInRoomType,
   helper: FormikHelpers<EnterInRoomType>,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  setIsLoading: (arg: boolean) => void
 ) => {
   try {
+    setIsLoading(true)
     const res = await enterInRoom(data);
     navigate(`/draw_online/${res.data._id}`)
   } catch (e) {
     console.error(e);
+  }
+  finally {
+    setIsLoading(false)
   }
 
 };

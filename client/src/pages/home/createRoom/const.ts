@@ -15,12 +15,15 @@ const validationSchema = yup.object().shape({
   roomPassword: yup.string().required('Required')
 })
 
-const onSubmit = async (data: CreateRoom, helper: FormikHelpers<CreateRoom>, navigate: NavigateFunction) => {
+const onSubmit = async (data: CreateRoom, helper: FormikHelpers<CreateRoom>, navigate: NavigateFunction, setIsLoading: (arg: boolean) => void) => {
   try {
+    setIsLoading(true);
     const res = await createRoom(data);
     navigate(`/draw_online/${res.data._id}`)
-  }catch(e){
+  } catch (e) {
     console.error(e);
+  } finally {
+    setIsLoading(false);
   }
 
 }
