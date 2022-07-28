@@ -8,12 +8,13 @@ const awss = wsServer.getWss();
 const FileUploader = require("express-fileupload");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
+const ErrorHandler = require("./middlewares/errorHandler.middleware");
 
 app.use(cookieParser());
 app.use(
   cors({
     origin: true,
-    credentials:true,
+    credentials: true,
     optionsSuccessStatus: 200
   })
 );
@@ -21,6 +22,7 @@ app.use(
 app.use(express.json());
 app.use(FileUploader({}));
 app.use("/api", router);
+app.use(ErrorHandler)
 
 const RunServer = async () => {
   try {

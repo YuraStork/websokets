@@ -1,6 +1,6 @@
-const {nanoid} = require("nanoid");
+const { nanoid } = require("nanoid");
 
-const setUser = (req, res) => {
+const setUser = (req, res, next) => {
   try {
     const cookies = req.cookies;
     if (!cookies.userId) {
@@ -9,8 +9,7 @@ const setUser = (req, res) => {
     return res.status(200).json();
   }
   catch (e) {
-    console.error(e);
-    return res.status(403).json({ message: "error" })
+    return next(e);
   }
 }
 module.exports = { setUser };
