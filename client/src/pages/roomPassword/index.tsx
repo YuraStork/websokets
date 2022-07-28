@@ -14,7 +14,6 @@ export const PrivateRoom = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.state);
     if (!location.state) {
       navigate("/")
     }

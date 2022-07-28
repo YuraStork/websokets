@@ -1,5 +1,5 @@
-import axios from "axios"
+import { Instance } from "../instance";
 
 export const checkRoom = (id: string) => {
-  return axios.get(`http://localhost:5000/api/room/check/${id}`, { withCredentials: true });
+  return Instance.get(`room/check/${id}`, { withCredentials: true });
 }

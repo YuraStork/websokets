@@ -1,5 +1,5 @@
-import axios from "axios"
+import { Instance } from "../instance";
 
 export const getAllRooms = async () => {
-  return axios.get("http://localhost:5000/api/room/all");
+  return Instance.get("room/all");
 }

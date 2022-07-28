@@ -1,6 +1,6 @@
-import axios from "axios"
 import { CreateRoom } from "../../pages/home/types";
+import { Instance } from "../instance";
 
 export const createRoom = async (data: CreateRoom) => {
-  return axios.post("http://localhost:5000/api/room/create", data, { withCredentials: true });
+  return Instance.post("room/create", data, { withCredentials: true });
 }
