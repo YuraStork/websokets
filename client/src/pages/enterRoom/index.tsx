@@ -10,9 +10,9 @@ export const EnterRoomWrapper: FC<any> = ({ children }) => {
   useEffect(() => {
     setIsloading(true);
     checkRoom(id || "")
-      .then((res) => {})
+      .then((res) => { })
       .catch((e) => {
-        navigate(`/checkRoompassword/${id}`)
+        navigate(`/checkRoompassword/${id}`, { state: true })
       })
       .finally(() => setIsloading(false));
   }, []);
