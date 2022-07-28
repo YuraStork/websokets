@@ -57,6 +57,7 @@ router.get("/check/:id", async (req, res) => {
       return res.status(400).json({ "message": "password" });
     }
     return res.status(200).json(existRoom);
+
   } catch (e) {
     console.error(e);
     return res.status(403).json(e);
