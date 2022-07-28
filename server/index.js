@@ -7,12 +7,15 @@ const wsServer = require("express-ws")(app);
 const awss = wsServer.getWss();
 const FileUploader = require("express-fileupload");
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 
 app.use(
   cors({
     origin: true,
   })
 );
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(FileUploader({}));
 app.use("/api", router);
