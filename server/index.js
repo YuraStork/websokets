@@ -9,13 +9,15 @@ const FileUploader = require("express-fileupload");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: true,
+    credentials:true,
+    optionsSuccessStatus: 200
   })
 );
 
-app.use(cookieParser());
 app.use(express.json());
 app.use(FileUploader({}));
 app.use("/api", router);
