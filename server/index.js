@@ -17,6 +17,7 @@ app.use(
     optionsSuccessStatus: 200
   })
 );
+
 app.use(express.json());
 app.use(FileUploader({}));
 app.use("/api", router);
