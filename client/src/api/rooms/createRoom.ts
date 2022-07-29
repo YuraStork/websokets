@@ -1,4 +1,4 @@
-import { CreateRoom } from "../../pages/home/types";
+import { CreateRoom } from "../../pages/homePage/types";
 import { Instance } from "../instance";
 
 export const createRoom = async (data: CreateRoom) => {

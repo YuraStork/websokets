@@ -26,8 +26,10 @@ export const HomePage = () => {
       <HomePageWrapper>
         <CreateRoomComponent isLoading={loading} setIsLoading={setIsLoading} />
         <EnterInRoomComponent isLoading={loading} setIsLoading={setIsLoading} />
-        <TrainComponent />
-        {data && (data as []).map((e: any) => <div key={e._id}>{e.roomName}</div>)}
+        {/* <TrainComponent /> */}
+        {/* <div>
+          {data && (data as []).map((e: any) => <div key={e._id}>{e.roomName}</div>)}
+        </div> */}
       </HomePageWrapper>
     </Container>
   </HomePageSection>

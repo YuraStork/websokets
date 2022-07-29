@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { setUser } from "./api/user/setUser";
 import { Loader } from "./components/loader";
 import { Router } from "./router";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isUser, setIsUser] = useState(false);
+  const [user, setIsUser] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -14,7 +16,8 @@ function App() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  if (isLoading || !isUser) return <Loader position="absolute" />;
+  if (error) return <div>error</div>
+  if (isLoading || !user) return <Loader position="absolute" />;
   return <Router />;
 }
 
