@@ -6,8 +6,8 @@ export class Square extends Tool {
   private y1 = 0;
   private saved: string = "";
 
-  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>) {
-    super(canvas);
+  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket, id: string) {
+    super(canvas, socket, id);
     this.listen();
   }
 

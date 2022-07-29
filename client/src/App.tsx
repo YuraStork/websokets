@@ -5,21 +5,17 @@ import { Router } from "./router";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    setUser().then(res => setIsLoading(false)).catch(e => setIsLoading(false));
-    // const socket = new WebSocket("ws://localhost:5000/");
-    // socket.onopen = () => socket.send("new user");
-    // socket.onmessage = (e) => {
-    //   console.log(e.data)
-    // }
-  }, [])
+    setUser()
+      .then(() => setIsUser(true))
+      .finally(() => setIsLoading(false));
+  }, []);
 
-  if (isLoading) return <Loader position="absolute" />
-  return (
-    <Router />
-  );
+  if (isLoading || !isUser) return <Loader position="absolute" />;
+  return <Router />;
 }
 
 export default App;

@@ -1,14 +1,10 @@
-import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react"
+import { AxiosResponse } from "axios";
+import { useState } from "react"
 
 export const useRequest = (request: () => any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [data, setData] = useState(null);
-
-  useEffect(() => {
-    makeRequest();
-  }, [])
 
   const makeRequest = async () => {
     try {
@@ -22,5 +18,5 @@ export const useRequest = (request: () => any) => {
       setIsLoading(false);
     }
   }
-  return { isLoading, error, data };
+  return { isLoading, error, data, makeRequest };
 }

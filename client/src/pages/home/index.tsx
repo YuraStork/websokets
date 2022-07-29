@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { getAllRooms } from "../../api/rooms/getRooms"
 import { Container } from "../../components/container"
@@ -11,8 +11,14 @@ import { TrainComponent } from "./train"
 
 export const HomePage = () => {
   const [loading, setIsLoading] = useState(false);
-  const { data, isLoading } = useRequest(getAllRooms);
-  
+  const { data, isLoading, makeRequest } = useRequest(getAllRooms);
+
+  useEffect(() => {
+    if (!data) {
+      makeRequest();
+    }
+  }, [])
+
   if (isLoading || loading) return <Loader position="absolute" />
 
   return <HomePageSection>

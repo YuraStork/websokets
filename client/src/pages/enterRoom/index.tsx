@@ -7,17 +7,23 @@ export const EnterRoomWrapper: FC<any> = ({ children }) => {
   const { id } = useParams();
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
+  const [room, setRoom] = useState(false);
 
   useEffect(() => {
-    setIsloading(true);
-    checkRoom(id || "")
-      .then((res) => { })
-      .catch((e) => {
-        navigate(`/checkRoompassword/${id}`, { state: true })
-      })
-      .finally(() => setIsloading(false));
+    if (!id) navigate("/");
+    else {
+      setIsloading(true);
+      checkRoom(id)
+        .then((res) => {
+          setRoom(true);
+        })
+        .catch((e) => {
+          navigate(`/checkRoompassword/${id}`, { state: true });
+        })
+        .finally(() => setIsloading(false));
+    }
   }, []);
 
-  if (isLoading) return <Loader position="absolute" />;
-  return <div>{children}</div>;
+  if (isLoading || !room) return <Loader position="absolute" />;
+  return <>{children}</>;
 };
