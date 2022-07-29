@@ -7,6 +7,7 @@ export const EnterRoomWrapper: FC<any> = ({ children }) => {
   const { id } = useParams();
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
+  const [room, setRoom] = useState(false);
 
   useEffect(() => {
     if (!id) navigate("/");
@@ -14,25 +15,15 @@ export const EnterRoomWrapper: FC<any> = ({ children }) => {
       setIsloading(true);
       checkRoom(id)
         .then((res) => {
-          const socket = new WebSocket("ws://localhost:5000/ws");
-          socket.onopen = () => {
-            socket.send(JSON.stringify({
-              name: "yura",
-              method: "connection"
-            }))
-
-            socket.onmessage = (e) => {
-              console.log("NEW MESSAGE", e.data)
-            }
-          }
+          setRoom(true);
         })
         .catch((e) => {
-          navigate(`/checkRoompassword/${id}`, { state: true })
+          navigate(`/checkRoompassword/${id}`, { state: true });
         })
         .finally(() => setIsloading(false));
     }
   }, []);
 
-  if (isLoading) return <Loader position="absolute" />;
+  if (isLoading || !room) return <Loader position="absolute" />;
   return <>{children}</>;
 };

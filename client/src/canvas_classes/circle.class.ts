@@ -6,8 +6,8 @@ export class Circle extends Tool {
   private x1 = 0;
   private y1 = 0;
 
-  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>) {
-    super(canvas);
+  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket) {
+    super(canvas, socket);
     this.listen();
   }
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { Circle } from "../canvas_classes/circle.class";
 import { Eraser } from "../canvas_classes/eraser.class";
 import { Line } from "../canvas_classes/line.class";
@@ -16,9 +17,12 @@ export const useCanvas = () => {
   const [borderSize, setBorderSize] = useState(1);
   const [snapshotList, setSnapshotList] = useState<string[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState(-1);
+  const [socket, setSocket] = useState<any>(null);
+  const [sessionId, setSessionId] = useState<any>(null);
+  const params = useParams();
+  const location = useLocation();
 
   const setToolhandler = (tool: ToolsTypes) => setTool(tool);
-  console.log("length: ", snapshotList.length, snapshotIndex + 1);
 
   const pushUndo = () => {
     if (snapshotIndex > 0 && snapshotIndex < 10) {
@@ -51,11 +55,31 @@ export const useCanvas = () => {
   }, []);
 
   useEffect(() => {
+    if (!socket) {
+      const socket = new WebSocket("ws://localhost:5000/ws");
+      setSocket(socket);
+      setSessionId(params.id || "1");
+      socket.onopen = () => {
+        socket.send(
+          JSON.stringify({
+            name: (location.state as any)?.userName || "user",
+            method: "connection",
+          })
+        );
+
+        socket.onmessage = (e) => {
+          console.log("NEW MESSAGE", e.data);
+        };
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     draw();
   }, [tool, backgroundColor, borderColor, borderSize, snapshotIndex]);
 
   const draw = () => {
-    const myCanvas = new Tool(canvasRef);
+    const myCanvas = new Tool(canvasRef, socket);
     myCanvas.changeBackgroundColor(backgroundColor);
     myCanvas.changeBorderColor(borderColor);
     myCanvas.changeBorderSize(borderSize);
@@ -63,22 +87,22 @@ export const useCanvas = () => {
 
     switch (tool) {
       case "pen":
-        new Pen(canvasRef);
+        new Pen(canvasRef, socket);
         break;
       case "square":
-        new Square(canvasRef);
+        new Square(canvasRef, socket);
         break;
       case "circle":
-        new Circle(canvasRef);
+        new Circle(canvasRef, socket);
         break;
       case "eraser":
-        new Eraser(canvasRef);
+        new Eraser(canvasRef, socket);
         break;
       case "line":
-        new Line(canvasRef);
+        new Line(canvasRef, socket);
         break;
       default:
-        new Pen(canvasRef);
+        new Pen(canvasRef, socket);
     }
   };
   return {
@@ -92,6 +116,6 @@ export const useCanvas = () => {
     handleSnapshot,
     handleReset: pushUndo,
     handleRedo: pushRedo,
-    snapshot: snapshotList[snapshotList.length - 1] || null
+    snapshot: snapshotList[snapshotList.length - 1] || null,
   };
 };

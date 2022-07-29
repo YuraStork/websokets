@@ -13,8 +13,10 @@ const awss = wsServer.getWss();
 wsServer.app.ws("/ws", (ws, req) => {
   ws.onmessage = e => {
     const data = JSON.parse(e.data)
-    if(data.method === "connection"){
-      awss.clients.forEach(c=>c.send("new user had joined"))
+    switch (data.method) {
+      case "connection": awss.clients.forEach(c => c.send(`${data.name || "user"} had joined`)); break;
+      case "draw": awss.clients.forEach(c => c.send("user is drawing")); break;
+      default :awss.clients.forEach(c => c.send("message")); break;
     }
   }
 })

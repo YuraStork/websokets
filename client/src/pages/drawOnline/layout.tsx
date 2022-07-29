@@ -18,7 +18,6 @@ const Layout = styled.div`
 
 export const DrawOnlinePage = () => {
   const data = useCanvas();
-
   return (
     <PaintContext.Provider value={{ ...data }}>
       <Layout>

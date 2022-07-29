@@ -3,8 +3,8 @@ import { Tool } from "./tool.class";
 export class Pen extends Tool {
   private mouseDown = false;
 
-  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>) {
-    super(canvas);
+  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket) {
+    super(canvas, socket);
     this.listen();
   }
 
@@ -34,6 +34,9 @@ export class Pen extends Tool {
     if (this.mouseDown && this.ctx) {
       this.ctx.lineTo(e.offsetX, e.offsetY);
       this.ctx.stroke();
+      this.socket.send(JSON.stringify({
+        method: "draw"
+      }))
     }
   }
 }
