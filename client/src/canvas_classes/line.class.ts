@@ -17,17 +17,17 @@ export class Line extends Tool {
     this.canvas.current.onmouseup = this.onMouseUp.bind(this);
   }
 
-  onMouseUp(e: any) {
+  private onMouseUp(e: any) {
     this.mouseDown = false;
   }
 
-  onMouseDown(e: MouseEvent) {
+  private onMouseDown(e: MouseEvent) {
     this.mouseDown = true;
     this.saved = this.canvas.current.toDataURL();
     this.x1 = e.offsetX;
     this.y1 = e.offsetY;
   }
-  onMouseMove(e: MouseEvent) {
+  private onMouseMove(e: MouseEvent) {
     let img = new Image();
     img.src = this.saved;
     img.onload = () => {

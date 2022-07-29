@@ -3,6 +3,7 @@ import { LayoutComponent } from "./layout";
 import { DrawOnlinePage } from "./pages/drawOnline/layout";
 import { EnterRoomWrapper } from "./pages/enterRoom";
 import { HomePage } from "./pages/home";
+import { NotFoundPage } from "./pages/notfound";
 import { PrivateRoom } from "./pages/roomPassword";
 
 export const Router = () => {
@@ -11,7 +12,7 @@ export const Router = () => {
     { path: "/draw", element: <LayoutComponent /> },
     { path: "/draw_online/:id", element: <EnterRoomWrapper><DrawOnlinePage /> </EnterRoomWrapper> },
     { path: "/checkRoompassword/:id", element: <PrivateRoom /> },
-    { path: "*", element: <div>not found</div> }
+    { path: "*", element: <NotFoundPage /> }
   ])
   return router;
 }

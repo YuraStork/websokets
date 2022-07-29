@@ -2,8 +2,6 @@ import { Tool } from "./tool.class";
 
 export class Pen extends Tool {
   private mouseDown = false;
-  private startX = 0;
-  private startY = 0;
 
   constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket, id: string) {
     super(canvas, socket, id);
@@ -16,7 +14,7 @@ export class Pen extends Tool {
     this.canvas.current.onmouseup = this.onMouseUp.bind(this);
   }
 
-  onMouseUp(e: MouseEvent) {
+  private onMouseUp(e: MouseEvent) {
     this.mouseDown = false;
     this.socket.send(JSON.stringify({
       method: "finish",
@@ -24,14 +22,14 @@ export class Pen extends Tool {
     }))
   }
 
-  onMouseDown(e: MouseEvent) {
+  private onMouseDown(e: MouseEvent) {
     this.mouseDown = true;
     if (this.ctx) {
       this.ctx.beginPath();
     }
   }
 
-  onMouseMove(e: MouseEvent) {
+  private onMouseMove(e: MouseEvent) {
     if (this.mouseDown && this.ctx) {
       this.socket.send(JSON.stringify({
         method: "draw",

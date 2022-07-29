@@ -17,14 +17,14 @@ export class Circle extends Tool {
     this.canvas.current.onmouseup = this.onMouseUp.bind(this);
   }
 
-  onMouseDown(e: MouseEvent) {
+  private onMouseDown(e: MouseEvent) {
     this.mouseDown = true;
     this.x1 = e.offsetX;
     this.y1 = e.offsetY;
     this.saved = this.canvas.current.toDataURL();
   }
 
-  onMouseMove(e: MouseEvent) {
+  private onMouseMove(e: MouseEvent) {
     if (this.mouseDown && this.ctx) {
       let img = new Image();
       img.src = this.saved;
@@ -34,7 +34,7 @@ export class Circle extends Tool {
     }
   }
 
-  onMouseUp(e: MouseEvent) {
+  private onMouseUp(e: MouseEvent) {
     this.mouseDown = false;
     this.x1 = e.offsetX;
     this.y1 = e.offsetY;
