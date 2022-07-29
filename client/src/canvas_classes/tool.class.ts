@@ -4,11 +4,13 @@ export class Tool {
   protected width = 1200;
   protected height = 550;
   protected socket;
+  protected id;
 
-  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket) {
+  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, ctx: CanvasRenderingContext2D, socket: WebSocket, id: string) {
     this.canvas = canvas;
     this.socket = socket;
-    this.ctx = canvas.current.getContext("2d");
+    this.id = id;
+    this.ctx = ctx;
     this.width = canvas.current.width;
     this.height = canvas.current.height;
   }

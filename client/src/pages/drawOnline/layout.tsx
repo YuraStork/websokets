@@ -5,7 +5,7 @@ import { Toolbar } from "../../components/toolbar"
 import { PaintContext } from "../../context/paintContext";
 import { useCanvas } from "../..//hooks/canvas.hook";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 
 const Layout = styled.div`
@@ -18,6 +18,10 @@ const Layout = styled.div`
 
 export const DrawOnlinePage = () => {
   const data = useCanvas();
+  const params = useParams();
+  const navigate = useNavigate();
+
+  if (!params.id) navigate("/");
   return (
     <PaintContext.Provider value={{ ...data }}>
       <Layout>
