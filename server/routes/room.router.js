@@ -25,8 +25,13 @@ router.post("/enter", async (req, res, next) => {
     const { name, roomId, roomPassword = "" } = req.body;
     if (!roomId || !name)
       return next(ApiError.badRequest("Invalid data in request"));
-    const existRoom = await room.findById(roomId);
-    if (!existRoom) return next(ApiError.notFound("Not found room"));
+    let existRoom;
+    try {
+      existRoom = await room.findById(roomId);
+      if (!existRoom) return next(ApiError.notFound("Not found room"));
+    } catch (e) {
+      return next(ApiError.notFound("Not found room"));
+    }
     const equilPassword = existRoom.roomPassword === roomPassword;
     if (!equilPassword) return next(ApiError.forbidden("Invalid password"));
     const userInRoom = existRoom.users.find((user) => user === userId);
@@ -40,7 +45,7 @@ router.post("/enter", async (req, res, next) => {
     }
     return res.status(200).json(existRoom);
   } catch (e) {
-     next(e);
+    next(e);
   }
 });
 
@@ -53,7 +58,7 @@ router.get("/all", async (req, res, next) => {
   }
 });
 
-router.get("/check/:id", async (req, res,next) => {
+router.get("/check/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { userId } = req.cookies;
@@ -67,7 +72,7 @@ router.get("/check/:id", async (req, res,next) => {
   }
 });
 
-router.post("/checkRoomPassword/:id", async (req, res,next) => {
+router.post("/checkRoomPassword/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { password = "", name } = req.body;
