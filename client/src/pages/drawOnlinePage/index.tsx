@@ -3,7 +3,7 @@ import { Canvas } from "../../components/canvas"
 import { SettingsBar } from "../../components/settings"
 import { Toolbar } from "../../components/toolbar"
 import { PaintContext } from "../../context/paintContext";
-import { useCanvas } from "../..//hooks/canvas.hook";
+import { useCanvas } from "../../hooks/canvas.hook";
 import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 

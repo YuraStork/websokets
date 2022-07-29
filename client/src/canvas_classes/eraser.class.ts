@@ -16,13 +16,13 @@ export class Eraser extends Tool {
     this.canvas.current.onmouseup = this.onMouseUp.bind(this);
   }
 
-  onMouseDown(e: MouseEvent) {
+  private onMouseDown(e: MouseEvent) {
     this.mouseDown = true;
     this.x1 = e.offsetX;
     this.y1 = e.offsetY;
   };
 
-  onMouseMove(e: MouseEvent) {
+  private onMouseMove(e: MouseEvent) {
     if (this.ctx && this.mouseDown) {
       this.ctx.beginPath();
       this.ctx.rect(this.x1, this.y1, 40, 40);
@@ -35,7 +35,7 @@ export class Eraser extends Tool {
     this.y1 = e.offsetY;
   };
 
-  onMouseUp(e: MouseEvent) {
+  private onMouseUp(e: MouseEvent) {
     this.mouseDown = false;
   }
 };

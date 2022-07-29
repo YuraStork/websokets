@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const EnterInRoomWrapper = styled.div`
-  min-width: 300px;
-  max-width: 500px;
+  flex-basis: 400px;
+  flex-grow:1;
   background-color: #22ee77be;
   padding: 10px;
 

@@ -5,7 +5,6 @@ import { Toolbar } from "./components/toolbar"
 import { PaintContext } from "./context/paintContext";
 import { useCanvas } from "./hooks/canvas.hook";
 
-
 const Layout = styled.div`
   max-width: 1200px;
   min-height: 100vh;

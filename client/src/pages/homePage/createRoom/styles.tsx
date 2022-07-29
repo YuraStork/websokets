@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const CreateRoomWrapper = styled.div`
-  min-width: 300px;
-  max-width: 500px;
+  flex-basis: 400px;
+  flex-grow:1;
   background-color: #2274eebf;
   padding: 10px;
 
