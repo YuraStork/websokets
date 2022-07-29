@@ -6,8 +6,8 @@ export class Line extends Tool {
   private x1 = 0;
   private y1 = 0;
 
-  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, ctx: CanvasRenderingContext2D, socket: WebSocket, id: string) {
-    super(canvas, ctx, socket, id);
+  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket, id: string) {
+    super(canvas, socket, id);
     this.listen();
   }
 

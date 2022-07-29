@@ -28,6 +28,11 @@ wsServer.app.ws("/ws", (ws, req) => {
           if (c.id === data.id) c.send(e.data);
         });
         break;
+      case "finish":
+        awss.clients.forEach((c) => {
+          if (c.id === data.id) c.send(e.data);
+        });
+        break;
       default:
         awss.clients.forEach((c) => c.send("message"));
         break;

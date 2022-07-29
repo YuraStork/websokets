@@ -9,8 +9,8 @@ import { Tool } from "../canvas_classes/tool.class";
 
 export type ToolsTypes = "pen" | "line" | "eraser" | "circle" | "square";
 type ParamsProps = {
-  id: string
-}
+  id: string;
+};
 export const useCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null!);
   const [ctx, setCtx] = useState<any>(null);
@@ -63,27 +63,31 @@ export const useCanvas = () => {
       const socket = new WebSocket("ws://localhost:5000/ws");
       setSocket(socket);
       socket.onopen = () => {
-        console.log(params.id)
         socket.send(
           JSON.stringify({
             name: (location.state as any)?.userName || "user",
             method: "connection",
-            id: params.id
+            id: params.id,
           })
         );
 
         socket.onmessage = (e) => {
           console.log(e.data);
           const data = JSON.parse(e.data);
-
-          if (data.method === "draw") {
-            switch (data.tool) {
-              case "pen": {
-                ctx?.beginPath();
-                ctx?.moveTo(data.startX, data.startY);
-                ctx?.lineTo(data.x, data.y);
-                ctx?.stroke();
-                ctx?.closePath();
+          switch (data.method) {
+            case "connection":
+              console.log("New user had joined");
+              break;
+            case "finish":
+              const ctx = canvasRef.current.getContext("2d");
+              ctx?.beginPath();
+              break;
+            case "draw": {
+              const ctx = canvasRef.current.getContext("2d");
+              switch (data.tool) {
+                case "pen": {
+                  Pen.draw(ctx, data.x, data.y);
+                }
               }
             }
           }
@@ -97,7 +101,7 @@ export const useCanvas = () => {
   }, [tool, backgroundColor, borderColor, borderSize, snapshotIndex]);
 
   const draw = () => {
-    const myCanvas = new Tool(canvasRef, ctx, socket, params.id || "1");
+    const myCanvas = new Tool(canvasRef, socket, params.id || "1");
     myCanvas.changeBackgroundColor(backgroundColor);
     myCanvas.changeBorderColor(borderColor);
     myCanvas.changeBorderSize(borderSize);
@@ -105,22 +109,22 @@ export const useCanvas = () => {
 
     switch (tool) {
       case "pen":
-        new Pen(canvasRef, ctx, socket, params.id || "1");
+        new Pen(canvasRef, socket, params.id || "1");
         break;
       case "square":
-        new Square(canvasRef, ctx, socket, params.id || "1");
+        new Square(canvasRef, socket, params.id || "1");
         break;
       case "circle":
-        new Circle(canvasRef, ctx, socket, params.id || "1");
+        new Circle(canvasRef, socket, params.id || "1");
         break;
       case "eraser":
-        new Eraser(canvasRef, ctx, socket, params.id || "1");
+        new Eraser(canvasRef, socket, params.id || "1");
         break;
       case "line":
-        new Line(canvasRef, ctx, socket, params.id || "1");
+        new Line(canvasRef, socket, params.id || "1");
         break;
       default:
-        new Pen(canvasRef, ctx, socket, params.id || "1");
+        new Pen(canvasRef, socket, params.id || "1");
     }
   };
   return {

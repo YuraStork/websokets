@@ -6,11 +6,11 @@ export class Tool {
   protected socket;
   protected id;
 
-  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, ctx: CanvasRenderingContext2D, socket: WebSocket, id: string) {
+  constructor(canvas: React.MutableRefObject<HTMLCanvasElement>, socket: WebSocket, id: string) {
     this.canvas = canvas;
     this.socket = socket;
     this.id = id;
-    this.ctx = ctx;
+    this.ctx = canvas.current.getContext("2d");
     this.width = canvas.current.width;
     this.height = canvas.current.height;
   }
